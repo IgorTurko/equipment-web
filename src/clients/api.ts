@@ -12,14 +12,14 @@ export async function fetchEquipmentList(
   searchParams: EquipmentSearchParamsType
 ): Promise<EquipmentType[]> {
   const { data: result } = await axios.get(`${API_URL}/v1/equipment`, { params: searchParams });
-  const equipments = result.data;
+  const equipment = result.data;
 
-  if (!Array.isArray(equipments)) {
+  if (!Array.isArray(equipment)) {
     throw new Error("List of equipments API did not return anything or didn't return an array");
   }
 
-  const equipmentsDecoded = equipments.map((a) => {
-    const ret = Equipment.decode(a);
+  const equipmentsDecoded = equipment.map((equipmentItem) => {
+    const ret = Equipment.decode(equipmentItem);
     if (!isRight(ret)) {
       console.error('Invalid equipment item in list:', PathReporter.report(ret));
       throw new Error('Invalid equipment item in list');
@@ -29,4 +29,17 @@ export async function fetchEquipmentList(
   });
 
   return equipmentsDecoded;
+}
+
+export async function fetchEquipmentByCode(code: string): Promise<Equipment> {
+  const { data: result } = await axios.get(`${API_URL}/v1/equipment/${code}`);
+  const equipmentItem = result.data;
+
+  const ret = Equipment.decode(equipmentItem);
+  if (!isRight(ret)) {
+    console.error('Invalid equipment item:', PathReporter.report(ret));
+    throw new Error('Invalid equipment item');
+  }
+
+  return ret.right;
 }
