@@ -1,8 +1,9 @@
 import * as C from '@chakra-ui/react';
 import { createStandaloneToast, extendTheme } from '@chakra-ui/react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import NavBar from './components/nav-bar/NavBar';
 
-import EquipmentListingPage from './components/equipment/EquipmentListingPage';
+import EquipmentListingPage from './pages/EquipmentListingPage';
 
 const theme = {
   config: {
@@ -19,6 +20,14 @@ export function MainContainer() {
   return (
     <>
       <BrowserRouter>
+        <NavBar>
+          <C.Button variant="verticalNav" as={NavLink} end to="/">
+            Equipment list
+          </C.Button>
+          <C.Button variant="verticalNav" as={NavLink} end to="/equipment/new">
+            Add equipment
+          </C.Button>
+        </NavBar>
         <Routes>
           <Route path="/" element={<EquipmentListingPage />}></Route>
         </Routes>
