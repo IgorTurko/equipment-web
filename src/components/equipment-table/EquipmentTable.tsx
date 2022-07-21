@@ -1,4 +1,5 @@
 import { Table, Thead, Tbody, Tr, Th, Td, TableContainer } from '@chakra-ui/react';
+import { Link } from 'react-router-dom';
 import { EquipmentType } from '../../entities/equipment';
 import CircleIcon from '../icons/CircleIcons';
 
@@ -24,8 +25,10 @@ const EquipmentTable = (props: EquipmentTablePropsType) => {
         <Tbody>
           {equipment.map((equipmentItem) => {
             return (
-              <Tr>
-                <Td>{equipmentItem.code}</Td>
+              <Tr key={equipmentItem.code}>
+                <Td>
+                  <Link to={`/equipment/${equipmentItem.code}`}>{equipmentItem.code}</Link>
+                </Td>
                 <Td>{equipmentItem.address}</Td>
                 <Td>{equipmentItem.start_date || 'N/A'}</Td>
                 <Td>{equipmentItem.end_date || 'N/A'}</Td>
