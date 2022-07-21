@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
 import NavBar from './components/nav-bar/NavBar';
 
 import EquipmentListingPage from './pages/EquipmentListingPage';
+import EquipmentItemPage from './pages/EquipmentItemPage';
 
 const theme = {
   config: {
@@ -30,6 +31,7 @@ export function MainContainer() {
         </NavBar>
         <Routes>
           <Route path="/" element={<EquipmentListingPage />}></Route>
+          <Route path="/equipment/:code" element={<EquipmentItemPage />}></Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer />

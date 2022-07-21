@@ -31,7 +31,7 @@ export async function fetchEquipmentList(
   return equipmentsDecoded;
 }
 
-export async function fetchEquipmentByCode(code: string): Promise<Equipment> {
+export async function fetchEquipmentByCode(code: string): Promise<EquipmentType> {
   const { data: result } = await axios.get(`${API_URL}/v1/equipment/${code}`);
   const equipmentItem = result.data;
 
