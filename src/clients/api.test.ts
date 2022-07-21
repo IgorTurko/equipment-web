@@ -14,6 +14,8 @@ beforeAll(() => {
 });
 
 describe('fetchEquipment', () => {
+  const SEARCH_PARAMS = { limit: 1 };
+
   test('should return array of equipment', async () => {
     const equipment = [
       {
@@ -25,11 +27,9 @@ describe('fetchEquipment', () => {
       },
     ];
 
-    const limit = 1;
+    nock(API_URL).get('/v1/equipment').query(SEARCH_PARAMS).reply(200, { data: equipment });
 
-    nock(API_URL).get('/v1/equipment').query({ limit: limit }).reply(200, { data: equipment });
-
-    await expect(fetchEquipmentList(limit)).resolves.toEqual(equipment);
+    await expect(fetchEquipmentList(SEARCH_PARAMS)).resolves.toEqual(equipment);
   });
 
   test('should return error if invalid note in array', async () => {
@@ -44,11 +44,9 @@ describe('fetchEquipment', () => {
       },
     ];
 
-    const limit = 1;
+    nock(API_URL).get('/v1/equipment').query(SEARCH_PARAMS).reply(200, { data: equipment });
 
-    nock(API_URL).get('/v1/equipment').query({ limit: limit }).reply(200, { data: equipment });
-
-    await expect(fetchEquipmentList(limit)).rejects.toEqual(
+    await expect(fetchEquipmentList(SEARCH_PARAMS)).rejects.toEqual(
       new Error('Invalid equipment item in list')
     );
   });
@@ -56,11 +54,9 @@ describe('fetchEquipment', () => {
   test('should return error if no array is returned', async () => {
     const equipment = 'bla';
 
-    const limit = 1;
+    nock(API_URL).get('/v1/equipment').query(SEARCH_PARAMS).reply(200, { data: equipment });
 
-    nock(API_URL).get('/v1/equipment').query({ limit: limit }).reply(200, { data: equipment });
-
-    await expect(fetchEquipmentList(limit)).rejects.toEqual(
+    await expect(fetchEquipmentList(SEARCH_PARAMS)).rejects.toEqual(
       new Error("List of equipments API did not return anything or didn't return an array")
     );
   });

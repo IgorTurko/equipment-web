@@ -1,11 +1,17 @@
 import axios from 'axios';
 import { isRight } from 'fp-ts/Either';
 import { PathReporter } from 'io-ts/PathReporter';
-import { EquipmentType } from '../entities/equipment';
+import { Equipment, EquipmentType } from '../entities/equipment';
 import { API_URL } from '../config';
 
-export async function fetchEquipmentList(limit): Promise<EquipmentType[]> {
-  const { data: result } = await axios.get(`${API_URL}/v1/equipment`, { params: { limit: limit } });
+type EquipmentSearchParamsType = {
+  limit: number;
+};
+
+export async function fetchEquipmentList(
+  searchParams: EquipmentSearchParamsType
+): Promise<EquipmentType[]> {
+  const { data: result } = await axios.get(`${API_URL}/v1/equipment`, { params: searchParams });
   const equipments = result.data;
 
   if (!Array.isArray(equipments)) {
