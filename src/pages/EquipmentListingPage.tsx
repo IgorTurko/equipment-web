@@ -54,6 +54,9 @@ const EquipmentListingPage = () => {
 
   return (
     <C.Container h="calc(100vh - 4rem)">
+      <C.Heading mt={5} mb={5}>
+        Equipment list:
+      </C.Heading>
       <C.VStack align={'start'} mt={5} spacing={5}>
         <C.HStack w="100%" justifyContent={'space-between'}>
           <form onSubmit={doSearch}>

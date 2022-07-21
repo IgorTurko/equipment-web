@@ -1,6 +1,6 @@
 import * as C from '@chakra-ui/react';
 import { createStandaloneToast, extendTheme } from '@chakra-ui/react';
-import { BrowserRouter, Routes, Route, NavLink } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate, NavLink } from 'react-router-dom';
 import NavBar from './components/nav-bar/NavBar';
 
 import EquipmentListingPage from './pages/EquipmentListingPage';
@@ -30,7 +30,8 @@ export function MainContainer() {
           </C.Button>
         </NavBar>
         <Routes>
-          <Route path="/" element={<EquipmentListingPage />}></Route>
+          <Route path="/" element={<Navigate to="/equipment" replace />}></Route>
+          <Route path="/equipment" element={<EquipmentListingPage />}></Route>
           <Route path="/equipment/:code" element={<EquipmentItemPage />}></Route>
         </Routes>
       </BrowserRouter>
