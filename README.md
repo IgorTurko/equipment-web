@@ -1,6 +1,6 @@
 # Notes web app
 
-Tool that generally used to list everything that we have to do.
+Web app where equipment can be listed, viewed and created.
 
 ### Running the app locally
 
