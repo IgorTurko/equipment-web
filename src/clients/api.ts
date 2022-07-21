@@ -4,7 +4,7 @@ import { PathReporter } from 'io-ts/PathReporter';
 import { Equipment, EquipmentType } from '../entities/equipment';
 import { API_URL } from '../config';
 
-type EquipmentSearchParamsType = {
+export type EquipmentSearchParamsType = {
   limit: number;
 };
 

@@ -27,7 +27,11 @@ const EquipmentTable = (props: EquipmentTablePropsType) => {
             return (
               <Tr key={equipmentItem.code}>
                 <Td>
-                  <Link to={`/equipment/${equipmentItem.code}`}>{equipmentItem.code}</Link>
+                  <Link
+                    style={{ textDecorationLine: 'underline' }}
+                    to={`/equipment/${equipmentItem.code}`}>
+                    {equipmentItem.code}
+                  </Link>
                 </Td>
                 <Td>{equipmentItem.address}</Td>
                 <Td>{equipmentItem.start_date || 'N/A'}</Td>
