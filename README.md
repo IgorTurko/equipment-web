@@ -1,4 +1,4 @@
-# Notes web app
+# Equipment web app
 
 Web app where equipment can be listed, viewed and created.
 
