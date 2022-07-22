@@ -31,8 +31,21 @@ export async function fetchEquipmentList(
   return equipmentsDecoded;
 }
 
-export async function fetchEquipmentByCode(code: string): Promise<EquipmentType> {
+export async function fetchEquipmentItemByCode(code: string): Promise<EquipmentType> {
   const { data: result } = await axios.get(`${API_URL}/v1/equipment/${code}`);
+  const equipmentItem = result.data;
+
+  const ret = Equipment.decode(equipmentItem);
+  if (!isRight(ret)) {
+    console.error('Invalid equipment item:', PathReporter.report(ret));
+    throw new Error('Invalid equipment item');
+  }
+
+  return ret.right;
+}
+
+export async function saveEquipmentItem(params: EquipmentType): Promise<EquipmentType> {
+  const { data: result } = await axios.post(`${API_URL}/v1/equipment`);
   const equipmentItem = result.data;
 
   const ret = Equipment.decode(equipmentItem);

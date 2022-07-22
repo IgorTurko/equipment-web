@@ -1,6 +1,6 @@
 import axios from 'axios';
 import nock from 'nock';
-import { fetchEquipmentByCode, fetchEquipmentList } from './api';
+import { fetchEquipmentList, fetchEquipmentItemByCode, saveEquipmentItem } from './api';
 import { API_URL } from '../config';
 import httpAdapter from 'axios/lib/adapters/http';
 
@@ -16,7 +16,7 @@ beforeAll(() => {
 describe('fetchEquipmentList', () => {
   const SEARCH_PARAMS = { limit: 1 };
 
-  test('should return array of equipment', async () => {
+  test('should return list of equipment successfully', async () => {
     const equipment = [
       {
         code: 'foo',
@@ -62,8 +62,8 @@ describe('fetchEquipmentList', () => {
   });
 });
 
-describe('fetchEquipmentByCode', () => {
-  test('should return a single equipment', async () => {
+describe('fetchEquipmentItemByCode', () => {
+  test('should return equipment item successfully', async () => {
     const equipmentItem = {
       code: 'foo',
       address: 'faa',
@@ -74,7 +74,7 @@ describe('fetchEquipmentByCode', () => {
 
     nock(API_URL).get(`/v1/equipment/${equipmentItem.code}`).reply(200, { data: equipmentItem });
 
-    await expect(fetchEquipmentByCode(equipmentItem.code)).resolves.toEqual(equipmentItem);
+    await expect(fetchEquipmentItemByCode(equipmentItem.code)).resolves.toEqual(equipmentItem);
   });
 
   test('should return error if invalid equipment item in response', async () => {
@@ -89,7 +89,40 @@ describe('fetchEquipmentByCode', () => {
 
     nock(API_URL).get(`/v1/equipment/${equipmentItem.code}`).reply(200, { data: equipmentItem });
 
-    await expect(fetchEquipmentByCode(equipmentItem.code)).rejects.toEqual(
+    await expect(fetchEquipmentItemByCode(equipmentItem.code)).rejects.toEqual(
+      new Error('Invalid equipment item')
+    );
+  });
+});
+
+describe('saveEquipmentItem', () => {
+  test('should save and return saved equipment item', async () => {
+    const equipmentItem = {
+      code: 'foo',
+      address: 'faa',
+      start_date: '2022-08-19',
+      end_date: '2022-08-20',
+      status: 'stopped',
+    };
+
+    nock(API_URL).post('/v1/equipment').reply(201, { data: equipmentItem });
+
+    await expect(saveEquipmentItem(equipmentItem)).resolves.toEqual(equipmentItem);
+  });
+
+  test('should return error if invalid equipment item in response', async () => {
+    const equipmentItem = {
+      code: 'foo',
+      address: 'faa',
+      start_date: '2022-08-19',
+      end_date: '2022-08-20',
+      // bad_status here
+      status: 'bad_status',
+    };
+
+    nock(API_URL).post('/v1/equipment').reply(201, { data: equipmentItem });
+
+    await expect(saveEquipmentItem(equipmentItem)).rejects.toEqual(
       new Error('Invalid equipment item')
     );
   });
