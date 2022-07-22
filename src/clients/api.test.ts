@@ -107,6 +107,7 @@ describe('saveEquipmentItem', () => {
 
     nock(API_URL).post('/v1/equipment').reply(201, { data: equipmentItem });
 
+    // @ts-ignore
     await expect(saveEquipmentItem(equipmentItem)).resolves.toEqual(equipmentItem);
   });
 
@@ -122,6 +123,7 @@ describe('saveEquipmentItem', () => {
 
     nock(API_URL).post('/v1/equipment').reply(201, { data: equipmentItem });
 
+    // @ts-ignore
     await expect(saveEquipmentItem(equipmentItem)).rejects.toEqual(
       new Error('Invalid equipment item')
     );

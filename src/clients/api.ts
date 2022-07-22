@@ -45,7 +45,7 @@ export async function fetchEquipmentItemByCode(code: string): Promise<EquipmentT
 }
 
 export async function saveEquipmentItem(params: EquipmentType): Promise<EquipmentType> {
-  const { data: result } = await axios.post(`${API_URL}/v1/equipment`);
+  const { data: result } = await axios.post(`${API_URL}/v1/equipment`, params);
   const equipmentItem = result.data;
 
   const ret = Equipment.decode(equipmentItem);

@@ -5,6 +5,7 @@ import NavBar from './components/nav-bar/NavBar';
 
 import EquipmentListingPage from './pages/EquipmentListingPage';
 import EquipmentViewPage from './pages/EquipmentViewPage';
+import EquipmentCreatePage from './pages/EquipmentCreatePage';
 
 const theme = {
   config: {
@@ -22,7 +23,7 @@ export function MainContainer() {
     <>
       <BrowserRouter>
         <NavBar>
-          <C.Button variant="verticalNav" as={NavLink} end to="/">
+          <C.Button variant="verticalNav" as={NavLink} end to="/equipment">
             Equipment list
           </C.Button>
           <C.Button variant="verticalNav" as={NavLink} end to="/equipment/new">
@@ -33,7 +34,7 @@ export function MainContainer() {
           <Route path="/" element={<Navigate to="/equipment" replace />}></Route>
           <Route path="/equipment" element={<EquipmentListingPage />}></Route>
           <Route path="/equipment/:code" element={<EquipmentViewPage />}></Route>
-          <Route path="/equipment/new" element={<EquipmentViewPage />}></Route>
+          <Route path="/equipment/new" element={<EquipmentCreatePage />}></Route>
         </Routes>
       </BrowserRouter>
       <ToastContainer />
