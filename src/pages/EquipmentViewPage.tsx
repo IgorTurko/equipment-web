@@ -2,13 +2,13 @@ import * as C from '@chakra-ui/react';
 import React, { useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useAsync } from 'react-async';
-import { fetchEquipmentByCode } from '../clients/api';
+import { fetchEquipmentItemByCode } from '../clients/api';
 import AlertBox from '../components/alert-box/AlertBox';
 import { EquipmentType } from '../entities/equipment';
 
-const EquipmentItemPage = () => {
+const EquipmentViewPage = () => {
   const { code = '' } = useParams<{ code: string }>();
-  const memoizedFetchByCode = useCallback(() => fetchEquipmentByCode(code), [code]);
+  const memoizedFetchByCode = useCallback(() => fetchEquipmentItemByCode(code), [code]);
   const { data, isPending, error } = useAsync<EquipmentType>(memoizedFetchByCode);
 
   let content = null;
@@ -49,4 +49,4 @@ const EquipmentItemPage = () => {
   return <C.Container h="calc(100vh - 4rem)">{content}</C.Container>;
 };
 
-export default EquipmentItemPage;
+export default EquipmentViewPage;
